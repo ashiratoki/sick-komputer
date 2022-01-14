@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Katalog</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='style.css'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <%- include ('../components/navbar.ejs') %>
+        <div class="container">
+
+            <div class="row justify-content-center">
+                <h1 class="my-4 ">Deskripsi Produk
+                </h1>
+                <div class="col-md-4">
+                    <img class="img-fluid"
+                        src="data:image/<%=katalog.img.contentType%>;base64,<%=katalog.img.data.toString('base64')%>"
+                        alt="image-produk">
+                </div>
+
+                <div class="col-md-4">
+                    <h3 class="my-3">
+                        <%= katalog.namaBarang %>
+                    </h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida
+                        pellentesque
+                        urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris
+                        ultricies,
+                        justo eu convallis placerat, felis enim.</p>
+                    <h3 class="my-3">Rp 5.000.000</h3>
+                    <ul>
+                        <li><b>ID Barang:</b>
+                            <%= katalog.id %>
+                        </li>
+                        <li><b>Jenis Barang:</b>
+                            <%= katalog.jenisBarang %>
+                        </li>
+                    </ul>
+                    <a class="btn btn-primary mb-4" href="/katalog">Kembali</a>
+                </div>
+
+            </div>
+        </div>
+        <%- include ('../components/footer.ejs') %>
+</body>
+
+</html>
