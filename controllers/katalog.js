@@ -1,3 +1,4 @@
+const { request } = require('express')
 const Katalog = require('../models/katalog')
 
 // let katalog = [
@@ -9,10 +10,19 @@ const Katalog = require('../models/katalog')
 
 module.exports = { //Export modul untuk diimpor dalam file router
     index: function (req, res) {
-        Katalog.find(function (error, katalog) {
-            if (error) console.log(error)
+        let keyword = {}
+        if (req.query.keyword) {
+            keyword = { namaBarang: { $regex: req.query.keyword } }
+        }
+        Katalog.find(keyword, "namaBarang _id jenisBarang id img password", function (error, katalog) {
             res.render('pages/katalog/index', { katalog })
         })
+
+        // Katalog.find(function (error, katalog) {
+        //     if (error) console.log(error)
+        //     res.render('pages/katalog/index', { katalog })
+        // })
+
         // Katalog.findOne({ id: 11 }, function (error, katalog) {
         //     if (error) console.log(error)
         //     console.log(katalog)
@@ -22,13 +32,8 @@ module.exports = { //Export modul untuk diimpor dalam file router
     show: function (req, res) {
         const id = req.params.id
         Katalog.findById(id, function (error, data) {
-            if (error) console.log(error)
             res.render('pages/katalog/show', { katalog: data })
         })
-        // const data = katalog.filter(katalog => {
-        //     return katalog.idBarang == id
-        // })
-        // res.render('pages/katalog/show', { katalog: data });
     },
     read: function (req, res) {
         if (katalog.length > 0) {
@@ -58,24 +63,12 @@ module.exports = { //Export modul untuk diimpor dalam file router
         //     url: req.url,
         //     tanggal: new Date()
         // })
-
-        //BARU
-
         const katalog = new Katalog({
             id: req.body.id,
             namaBarang: req.body.namaBarang,
             jenisBarang: req.body.jenisBarang,
             password: req.body.password,
         });
-        // imgModel.create(obj, (err, item) => {
-        //     if (err) {
-        //         console.log(err);
-        //     }
-        //     else {
-        //         // item.save();
-        //         res.redirect('/');
-        //     }
-        // });
         katalog.save(function (error) {
             if (error) return handleError(error);
             res.redirect('/katalog')
@@ -111,7 +104,7 @@ module.exports = { //Export modul untuk diimpor dalam file router
                 message: "Barang dalam katalog tidak ditemukan"
             })
         }
-        res.json(katalog) //tampilkan data katalog yang baru
+        // res.json(katalog) //tampilkan data katalog yang baru
     },
     baharui: function (req, res) {
         const _id = req.body._id
@@ -127,7 +120,6 @@ module.exports = { //Export modul untuk diimpor dalam file router
             password: password
         };
         Katalog.updateOne(filter, update, function (err) {
-            console.log(namaBarang, jenisBarang, password)
             res.redirect('/katalog')
         });
 
@@ -137,7 +129,6 @@ module.exports = { //Export modul untuk diimpor dalam file router
         const id = req.params._id
         Katalog.findById(id, function (error, data) {
             if (error) console.log(error)
-            console.log(data)
             res.render('pages/katalog/update', { katalog: data })
         })
     },

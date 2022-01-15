@@ -15,42 +15,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/expressuts');
 
-// var multer = require('multer');
-
-// var storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'uploads')
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, file.fieldname + '-' + Date.now())
-//     }
-// });
-
-// var upload = multer({ storage: storage });
-
-//Image
-
-// const fs = require('fs');
-// const path = require('path');
-// require('dotenv/config');
-
-// var multer = require('multer');
-
-// var storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'uploads')
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, file.fieldname + '-' + Date.now())
-//     }
-// });
-
-
-// var upload = multer({ storage: storage });
-
-//END
-
-
 //Tambahkan pesan jika koneksi ke database berhasil
 const db = mongoose.connection
 
